@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Raphael Organic Logo</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="fraphael.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+    <script type="text/javascript" src="guiGlue.js"></script>
+    <style type="text/css">
+      body {
+        background-color: #fff;
+      }
+
+      div#context {
+        background-color: #fff;
+        position:fixed;
+        width:1000px;
+        height:1000px;
+        left:50%;
+        top:50%;
+        margin-top:-500px;
+        margin-left:-500px;
+        /*border:solid 1px #000;*/
+      }
+
+      .petal {
+        mix-blend-mode: normal;
+        mix-blend-mode: overlay;
+        mix-blend-mode: color-burn;
+        mix-blend-mode: difference;
+        mix-blend-mode: exclusion;
+        mix-blend-mode: luminosity;
+        mix-blend-mode: color-dodge;
+        mix-blend-mode: hue;
+        mix-blend-mode: hard-light;
+        mix-blend-mode: lighten;
+        mix-blend-mode: darken;
+        mix-blend-mode: saturation;
+        mix-blend-mode: soft-light;
+        mix-blend-mode: color;
+        mix-blend-mode: screen;
+        mix-blend-mode: multiply;
+      }
+    </style>
+  </head>
+  <body>
+
+      <div id="context"></div>
+
+      <script src="organic-flower.js"></script>
+      <script>
+        var flowerSettings = {
+            opacityRange:         { min: 0.6,   max: 1,   display: 'range', value: 0.75 },
+            numOfPetals:          { value: 8 },
+            centerRadiusRange:    { min: 7,     max: 15,  display: 'range', value: 12   },
+            petalWidthRange:      { min: 0.7,   max: 2.3, display: 'range', value: 1.5  },
+            sizeMultiplierRange:  { min: 50,    max: 100, display: 'range', value: 75   },
+            blurRange:            { min: 0,     max: 1,   display: 'range', value: 0.5  },
+            angleSwingRange:      { min: 0,     max: 15,  display: 'range', value: 10   }
+        };
+        // dat.gui
+        (function(){/*
+          var FlowerOptions = function() {
+              var i = 0, self = this,
+                guiPropNames = ['opacityRangeMin','centerRadius','petalWidth','sizeMultiplier'];
+              for (;i<guiPropNames.length;i++) self[guiPropNames[i]] = flowerSettings[guiPropNames[i]];
+            },
+
+            gui = new dat.GUI(),
+            guiOptions = new FlowerOptions(),
+
+            guiControllers = [
+              gui.add(guiOptions, 'opacityRange', 1, 50),
+              gui.add(guiOptions, 'centerRadius', -10, 50),
+              gui.add(guiOptions, 'petalWidth',0.1,2),
+              gui.add(guiOptions, 'sizeMultiplier',0,100)
+            ];
+          */
+          for (param in flowerSettings) {
+            flowerSettings[param].onChange = function(value) {
+              flowerSettings[this.property].value = value;
+              drawFlower(flowerSettings);
+            };
+          }
+
+          //guiGlue(flowerSettings);
+        }());
+
+        var toggleTimer = function() {
+          if (timer===null) {
+            timer = setInterval(drawFlower,150);
+          } else {
+            clearInterval(timer);
+            timer = null;
+          }
+        }
+
+        drawFlower(flowerSettings);
+
+        $(document).on('click',toggleTimer);
+
+        function getRandom(min,max) {
+          if (typeof min==='object') { max = min.max; min = min.min; }
+          return Math.random() * (max - min) + min;
+        }
+      </script>
+  </body>
+</html>
