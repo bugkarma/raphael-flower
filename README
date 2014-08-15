@@ -1,11 +1,10 @@
 Dynamic Organic logo engine
-=========
+===========================
 
 An engine for creating dynamic organic logos in SVG format
 
 Version
-----
-
+-------
 0.001a
 
 Idea
@@ -17,15 +16,15 @@ Essentially, the logo will become a technology-driven piece that crowdsources ou
 Once we have a collection of possible variants from whoever wants to contribute, we can decide on how to choose the final version.  I have ideas for this, but this can wait.
 
 Status
-----
+------
 I've got a pretty good start on the algorithm to draw a flower.  I have a settings object that allows a developer to hard-code the values of each paramater.
 
 Technology
-----
-- RaphaelJS for the SVG library
-- dat.gui for the GUI
-- jQuery, however I'd like to remove this dependency.  I brought it in for its selectors and .extend method.
-- Blending Modes - An experimental feature in the latest safari/chrome.  Here's how to enable it: http://html.adobe.com/webplatform/enable/
+----------
+* RaphaelJS for the SVG library
+* dat.gui for the GUI
+* jQuery, however I'd like to remove this dependency.  I brought it in for its selectors and .extend method.
+* Blending Modes - An experimental feature in the latest safari/chrome.  Here's how to enable it: http://html.adobe.com/webplatform/enable/
 
 TODO
 ----
