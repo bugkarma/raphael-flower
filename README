@@ -1,1 +1,36 @@
 Dynamic Organic logo engine
+=========
+
+An engine for creating dynamic organic logos in SVG format
+
+Version
+----
+
+0.001a
+
+Idea
+----
+The plan here is to create an SVG-based flower-generation platform that can create unique flowers.  At first, I want to create a dat.gui interface for it so that creatives within the company can adjust the ranges of every paramater like petal size, colors, inner radius, petal angle swing, etc.  Creatives could then save their favorite options (stored as JSON files on a server by dat.gui).
+
+Essentially, the logo will become a technology-driven piece that crowdsources our agency's creative talent.
+
+Once we have a collection of possible variants from whoever wants to contribute, we can decide on how to choose the final version.  I have ideas for this, but this can wait.
+
+Status
+----
+I've got a pretty good start on the algorithm to draw a flower.  I have a settings object that allows a developer to hard-code the values of each paramater.
+
+Technology
+----
+- RaphaelJS for the SVG library
+- dat.gui for the GUI
+- jQuery, however I'd like to remove this dependency.  I brought it in for its selectors and .extend method.
+- Blending Modes - An experimental feature in the latest safari/chrome.  Here's how to enable it: http://html.adobe.com/webplatform/enable/
+
+TODO
+----
+1. Finish out the script to hook it up to a dat.gui interface.  When a parameter is changed in dat.gui, only that parameter should be modified.
+2. Hook up an open/save settings within the dat.gui interface to store variants.
+3. Add color parameters to gui.
+4. Once a gui is set up, I'd like to talk with some of our creatives to see what other options they'd like available, and to get general input to make sure we're moving in the right direction.
+5. Crowdsource
