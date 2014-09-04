@@ -2,12 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Raphael Organic Logo</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <title>Raphael Flower</title>
+    <script src="raphael-min.js"></script>
     <script src="fraphael.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
-    <script type="text/javascript" src="guiGlue.js"></script>
     <style type="text/css">
       body {
         background-color: #fff;
@@ -22,10 +19,11 @@
         top:50%;
         margin-top:-500px;
         margin-left:-500px;
-        border:solid 1px #ccc;
+        /*border:solid 1px #ccc;*/
       }
 
       .petal {
+        /*
         mix-blend-mode: normal;
         mix-blend-mode: overlay;
         mix-blend-mode: color-burn;
@@ -41,7 +39,9 @@
         mix-blend-mode: soft-light;
         mix-blend-mode: color;
         mix-blend-mode: screen;
+        */
         mix-blend-mode: multiply;
+
       }
     </style>
   </head>
@@ -49,38 +49,38 @@
 
       <div id="context"></div>
 
-      <script src="organic-flower.js"></script>
-      <script src="organic-flower-gui.js"></script>
+      <script src="raphael-flower.js"></script>
 
       <script>
         var flowerSettings = {
-            numOfPetals:          { min: 1,     max: 20,  display: 'range', value: 8,   step: 1   },
-            opacityRange:         { min: 0.6,   max: 1,   display: 'range', value: 0.75           },
-            centerRadiusRange:    { min: 7,     max: 15,  display: 'range', value: 12,  step: 1   },
-            petalWidthRange:      { min: 0.7,   max: 2.3, display: 'range', value: 1.5            },
-            sizeMultiplierRange:  { min: 50,    max: 100, display: 'range', value: 75,  step: 1   },
-            blurRange:            { min: 0,     max: 1,   display: 'range', value: 0.5, step: 0.1 },
-            angleSwingRange:      { min: 0,     max: 15,  display: 'range', value: 10             }
-        };
+              numOfPetals:          { min: 1,     max: 20,  display: 'range', value: 8,   step: 1   },
+              opacityRange:         { min: 0.6,   max: 1,   display: 'range', value: 0.75           },
+              centerRadiusRange:    { min: 7,     max: 15,  display: 'range', value: 12,  step: 1   },
+              petalWidthRange:      { min: 0.7,   max: 2.3, display: 'range', value: 1.5            },
+              sizeMultiplierRange:  { min: 50,    max: 100, display: 'range', value: 75,  step: 1   },
+              blurRange:            { min: 0,     max: 1,   display: 'range', value: 0.5, step: 0.1 },
+              angleSwingRange:      { min: 0,     max: 15,  display: 'range', value: 10             }
+            };
 
-        var flowerLogo = new FlowerLogo();
+        (function(){
+          var flowerLogo = new FlowerLogo();
 
-        var timer, toggleTimer = function() {
-          if (timer===null) {
-            timer = setInterval(FlowerLogo.drawFlower,150);
-          } else {
-            clearInterval(timer);
-            timer = null;
-          }
-        };
+          var timer = null,
+
+              drawFlower = function() { flowerLogo.drawFlower(flowerSettings); },
+
+              toggleTimer = function() {
+                if (timer===null) {
+                  timer = setInterval(drawFlower,1000);
+                } else {
+                  clearInterval(timer);
+                  timer = null;
+                }
+              };
         
-        var addEventListeners = function() {
-          document.addEventListener('click',toggleTimer);
-        };
-
-        addEventListeners();
-
-        flowerLogo.drawFlower(flowerSettings);
+          flowerLogo.drawFlower(flowerSettings);
+          toggleTimer();
+        }())
       </script>
   </body>
 </html>

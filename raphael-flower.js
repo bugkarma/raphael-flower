@@ -1,24 +1,21 @@
 var FlowerLogo = (function() {
-      _$context   = $('div#context')
-      _paper      = Raphael(_$context[0], _$context.width(), _$context.height()),
+      _context    = document.getElementById('context'),
+      _paper      = Raphael(_context, _context.offsetWidth, _context.offsetHeight),
       _origin     = { x: _paper.width/2, y: _paper.width/2 },
       _flowerSet  = null,
 
       // Draw flower
-      _drawFlower = function(newOptions) {
+      _drawFlower = function(options) {
         _paper.clear();
         
-        var _flowerSet   = _paper.set(),    // Declare a 'set' (a set of petals will make a flower)
-            _options     = flowerSettings;  // Copy settings for dat.gui
-
-        $.extend(_options,newOptions);       // Extend options
+        var _flowerSet   = _paper.set();    // Declare a 'set' (a set of petals will make a flower)
 
         // Settings shortcuts
-        var mx = _options.sizeMultiplier,
-            pw = _options.petalWidth,
-            or = _options.opacityRange,
-            as = _options.angleSwingRange,
-            np = _options.numOfPetals.value,
+        var mx = options.sizeMultiplier,
+            pw = options.petalWidth,
+            or = options.opacityRange,
+            as = options.angleSwingRange,
+            np = options.numOfPetals.value,
 
         // Get SVG path string for a petal
           getPetalPathString = function(i) {
@@ -36,9 +33,9 @@ var FlowerLogo = (function() {
 
         for (;i<np;i++) {
           // Randomize
-          pw = _getRandom(_options.petalWidthRange);                                                  // Petal width
-          mx = _getRandom(_options.sizeMultiplierRange);                                              // Petal size
-          cr = _getRandom(_options.centerRadiusRange);                                                // Center radius
+          pw = _getRandom(options.petalWidthRange);                                                  // Petal width
+          mx = _getRandom(options.sizeMultiplierRange);                                              // Petal size
+          cr = _getRandom(options.centerRadiusRange);                                                // Center radius
 
           thisPetal = _paper.path(getPetalPathString(i));                                             // Create petal from path string
 
@@ -57,7 +54,7 @@ var FlowerLogo = (function() {
           thisPetal.attr('fill-opacity',_getRandom(or));                                              // Opacity
           thisPetal.attr('stroke','none');                                                            // Remove stroke
 
-          $(thisPetal.node).attr('class','petal');                                                    // Add class for CSS
+          thisPetal.node.setAttribute('class','petal');                                               // Add class for CSS
           thisPetal.blur(_getRandom(flowerSettings.blurRange));                                       // Blur
 
           _flowerSet.push(thisPetal);                                                                 // Add to set
@@ -72,7 +69,7 @@ var FlowerLogo = (function() {
       };
 
   return function() {
-    this.context    = _$context[0],
+    this.context    = _context,
     this.drawFlower = _drawFlower,
     this.flowerSet  = _flowerSet
   };
